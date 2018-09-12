@@ -20,9 +20,8 @@ function! ChuckClearShreds()
   call jobstart('chuck --remove.all')
 endfunction
 
-" TODO: Write a shred replace function.
-" It should take a shred number and replace it with
-" the current buffer.
-" If ChucK allows replacing multiple shreds with a
-" single shred, the replace function should allow
-" that as well.
+function! ChuckReplaceShred()
+  let a:shred = input('Shred to replace: ')
+  call jobstart(g:chuck_command.' = '.a:shred.expand('%'))
+  redraw
+endfunction
