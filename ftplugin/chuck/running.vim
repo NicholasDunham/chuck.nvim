@@ -10,8 +10,8 @@ function! ChuckAddShred()
   call jobstart(g:chuck_command.' + '.expand('%'))
 endfunction
 
-" TODO: Rewrite this to allow multiple arguments.
-function! ChuckRemoveShred(shred)
+function! ChuckRemoveShred()
+  let a:shred = input('Shred(s) to remove: ')
   call jobstart(g:chuck_command.' - '.a:shred)
   redraw
 endfunction
