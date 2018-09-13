@@ -9,18 +9,18 @@ plugin](https://github.com/wilsaj/chuck.vim). It meets my needs, but the
 original version might work better for you. Here are the differences:
 
 * Expects you to start ChucK in loop mode yourself, rather than starting it for
-  you in a Vim split. I like to have ChucK running in a separate Tmux pane.
-* Uses [Neovim](https://neovim.io)'s native `jobstart()` function to send
-  commands to ChucK, instead of depending on
-  [vimproc](https://github.com/Shougo/vimproc.vim). This means it *won't* work
-  in the original Vim, even if you're using the latest version and/or have
-  vimproc installed.
+  you in a Vim split.
+* Uses [Neovim](https://neovim.io)'s `jobstart()` function to send commands to
+  ChucK, instead of depending on
+  [vimproc](https://github.com/Shougo/vimproc.vim). This means it's
+  Neovim-specific—it won't work in Vim, even if you're using the latest version
+  and/or have vimproc installed.
 * Does not map its functions to any keys by default. Recommended bindings are
   listed below.
 * Enables more granular control of ChucK shreds. The original plugin could only
-  add a shred (from the current buffer), whereas this one can add a shred
-  (again, from the current buffer), replace a shred (also using the current
-  buffer), remove a shred (by number), clear all active shreds.
+  add a shred (from the current buffer), whereas this one can also replace
+  a shred (also using the current buffer), remove a shred (by number), and
+  clear all active shreds. See below for details on these functions.
 
 
 ## Installation
@@ -29,34 +29,13 @@ This plugin is compatible with Vim plugin managers like
 [vundle](https://github.com/gmarik/vundle),
 [pathogen](https://github.com/tpope/vim-pathogen/), and
 [vim-plug](https://github.com/junegunn/vim-plug). The simplest way to get it
-installed is to use one of those.
-
-For vundle, install by adding the repo to your list of plugins in your .vimrc:
-
-  
-    filetype off
-    set rtp+=~/.vim/bundle/Vundle.vim
-    call vundle#begin()
-
-    " let vundle manage itself
-    Plugin 'gmarik/Vundle.vim'
-    Plugin 'Shougo/vimproc.vim'
-    Plugin 'highwaynoise/chuck.vim'
-
-    call vundle#end()
-    filetype plugin indent on
-
-Then install using vundle inside vim.
-
-    :PluginInstall
-
-Or you can also copy the files manually to their corresponding directories in
-your `~/.vim/` directory if you're into the taste of awfulness.
+installed is to use one of those. Consult your plugin manager's documentation
+for details.
 
 ## Usage
 
 Chuck.nvim makes no attempt to start or stop the ChucK VM. You'll need to start
-it up yourself, before running any of the plugin's functions. I like to have
+it up yourself before running any of the plugin's functions. I like to have
 ChucK running in a separate Tmux pane.
 
 ### Available Functions
@@ -74,7 +53,7 @@ changes, those changes will not be sent to ChucK. If the current buffer is
 unnamed, nothing will be sent to ChucK.
 
 **ChuckRemoveShred()**<br>Prompts the user for a shred number, then removes
-that shred from the ChucK VM. To get the number of a shred, use the
+that shred from the ChucK VM. To get the number of a shred to remove, use the
 `ChuckStatus()` function.
 
 **ChuckClearShreds()**<br>Removes all active shreds, but keeps the ChucK VM
@@ -107,10 +86,11 @@ nnoremap <leader>= :call ChuckReplaceShred()<CR>
 
 I'd like to streamline the shred management flow. Currently, removing or
 replacing a shred involves calling `ChuckStatus()`, reading the results to find
-the shred you're interested in, running the appropriate command, and entering
-the number of the shred. That's far too many steps. I'd like to make it
-possible to update a shred just by saving it, for example, or remove a shred by
-closing its buffer. Currently these things aren't possible, because ChucK
-doesn't return a shred number when it adds a shred, even when verbosity is set
-to 10. I'm considering developing a ChuGin that would provide a more robust shred
-management API, but my C/C++ skills are rusty/nonexistent, respectively.
+the shred you're interested in, running the command, and entering the number of
+the shred. That's too many steps. I'd like to make it possible to update
+a shred just by saving it, for example, or remove a shred by closing its
+buffer. Currently these things aren't possible because ChucK doesn't return
+a shred number when it adds a shred, even when verbosity is set to 10. I'm
+thinking through some ways to solve this problem, but since my ChucK skills
+aren't yet at the point where realtime control is necessary, it's not
+a priority.
