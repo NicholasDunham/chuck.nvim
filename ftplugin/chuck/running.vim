@@ -4,10 +4,12 @@ endif
 
 function! ChuckStatus()
   call jobstart(g:chuck_command.' ^')
+  redraw
 endfunction
 
 function! ChuckAddShred()
   call jobstart(g:chuck_command.' + '.expand('%'))
+  redraw
 endfunction
 
 function! ChuckRemoveShreds()
@@ -18,6 +20,7 @@ endfunction
 
 function! ChuckClearShreds()
   call jobstart('chuck --remove.all')
+  redraw
 endfunction
 
 function! ChuckReplaceShred()
