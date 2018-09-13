@@ -76,11 +76,14 @@ conflict with any other mappings you use. If you don't have a preference,
 you're welcome to use mine:
 
 ```vim
-nnoremap <leader>^ :call ChuckStatus()<CR>
-nnoremap <leader>+ :call ChuckAddShred()<CR>
-nnoremap <leader>- :call ChuckRemoveShreds()<CR>
-nnoremap <leader>_ :call ChuckClearShreds()<CR>
-nnoremap <leader>= :call ChuckReplaceShred()<CR>
+augroup chuckMaps
+  au!
+  au FileType chuck nnoremap <leader>^ :call ChuckStatus()<CR>
+  au FileType chuck nnoremap <leader>+ :call ChuckAddShred()<CR>
+  au FileType chuck nnoremap <leader>- :call ChuckRemoveShreds()<CR>
+  au FileType chuck nnoremap <leader>_ :call ChuckClearShreds()<CR>
+  au FileType chuck nnoremap <leader>= :call ChuckReplaceShred()<CR>
+augroup END
 ```
 
 
