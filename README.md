@@ -52,9 +52,11 @@ ChucK VM, to be added as an active shred. If the current buffer has unsaved
 changes, those changes will not be sent to ChucK. If the current buffer is
 unnamed, nothing will be sent to ChucK.
 
-**ChuckRemoveShred()**<br>Prompts the user for a shred number, then removes
+**ChuckRemoveShreds()**<br>Prompts the user for a shred number, then removes
 that shred from the ChucK VM. To get the number of a shred to remove, use the
-`ChuckStatus()` function.
+`ChuckStatus()` function. To remove multiple shreds with a single call to
+`ChuckRemoveShreds()`, enter the numbers of multiple shreds at the prompt,
+separated by spaces.
 
 **ChuckClearShreds()**<br>Removes all active shreds, but keeps the ChucK VM
 running.
@@ -76,7 +78,7 @@ you're welcome to use mine:
 ```vim
 nnoremap <leader>^ :call ChuckStatus()<CR>
 nnoremap <leader>+ :call ChuckAddShred()<CR>
-nnoremap <leader>- :call ChuckRemoveShred()<CR>
+nnoremap <leader>- :call ChuckRemoveShreds()<CR>
 nnoremap <leader>_ :call ChuckClearShreds()<CR>
 nnoremap <leader>= :call ChuckReplaceShred()<CR>
 ```

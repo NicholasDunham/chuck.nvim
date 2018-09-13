@@ -10,7 +10,7 @@ function! ChuckAddShred()
   call jobstart(g:chuck_command.' + '.expand('%'))
 endfunction
 
-function! ChuckRemoveShred()
+function! ChuckRemoveShreds()
   let a:shred = input('Shred(s) to remove: ')
   call jobstart(g:chuck_command.' - '.a:shred)
   redraw
